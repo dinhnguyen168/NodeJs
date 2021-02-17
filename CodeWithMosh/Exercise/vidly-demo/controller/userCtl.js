@@ -1,7 +1,14 @@
 const   _ = require('lodash'),
-        bcrypt = require('bcrypt');
+        bcrypt = require('bcrypt'),
+        config = require('config'),
+        jwt = require('jsonwebtoken');
 
 const   {User, validate} = require('../models/user');
+
+exports.getCurrentUser = async (req,res) => {
+    const user = await User.findById(req.user._id).select('-password'); 
+    res.send(user);
+}
 
 exports.postUserToRegister = async (req, res) => {
     const {error} = validate(req.body);
@@ -16,6 +23,8 @@ exports.postUserToRegister = async (req, res) => {
     const salt = bcrypt.genSaltSync(10);
     user.password = bcrypt.hashSync(req.body.password, salt);
 
-    await user.save()   
-    res.send(_.pick(user, ['_id', 'name', 'email']));
+    await user.save()
+    
+    const token = user.generateAuthToken();
+    res.header('x-auth-token', token).send(_.pick(user, ['_id', 'name', 'email']));
 }

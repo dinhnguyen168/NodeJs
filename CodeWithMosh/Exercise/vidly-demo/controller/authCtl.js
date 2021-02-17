@@ -1,13 +1,13 @@
 const   _ = require('lodash'),
         bcrypt = require('bcrypt'),
-        jwt = require('jsonwebtoken');
+        jwt = require('jsonwebtoken'),
+        config = require('config');
 
 const   Joi = require('joi');
 
 const   {User} = require('../models/user');
 
 exports.postUserToLogin = async (req, res) => {
-    console.log(req.body);
     const {error} = validate(req.body);
     if(error) return res.status(400).send(error.details[0].message);
 
@@ -17,7 +17,7 @@ exports.postUserToLogin = async (req, res) => {
     const validPassword = await bcrypt.compareSync(req.body.password, user.password);
     if(!validPassword) return res.status(400).send('Invalid email or password.');
 
-    const token = jwt.sign({_id : user._id}, 'jwtPrivateKey');
+    const token = user.generateAuthToken();
 
     res.send(token);
 
