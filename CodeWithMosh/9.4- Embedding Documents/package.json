@@ -1,0 +1,7 @@
+{
+    "name": "embedding-documents",
+    "version": "0.0.0",
+    "dependencies": {
+        "mongoose": "^5.11.16"
+    }
+}
