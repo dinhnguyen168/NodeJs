@@ -1,17 +1,17 @@
 const {Genre, validate} = require('../models/genre');
+const asyncMiddleware = require('../middleware/async')
+
 
 exports.getGenres = async (req, res) => {
-    const genres = await Genre
-        .find()
-        .sort('name');
+    const genres = await Genre.find().sort('name');
     res.send(genres);
 }
 
-exports.getGenreById = async (req,res) => {
+exports.getGenreById = asyncMiddleware(async (req,res) => {
     const genre = await Genre
         .findById(req.params.id);
     res.send(genre);
-}
+});
 
 exports.postGenre = async (req, res) => {
     const {error} = validate(req.body);

@@ -34,6 +34,7 @@ exports.postRental = async (req, res) => {
 
     if (movie.numberInStock === 0) return res.status(400).send('Movie not in stock.');
 
+
     // Step 1: Start a Client Session   
     const session = await mongoose.startSession();
 

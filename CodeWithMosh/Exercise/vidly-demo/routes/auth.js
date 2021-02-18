@@ -1,4 +1,4 @@
-const   {postUserToLogin} = require('../controller/authCtl');
+const   { postUserToLogin } = require('../controller/authCtl');
 
 const   express = require('express');
 const   router = express.Router();

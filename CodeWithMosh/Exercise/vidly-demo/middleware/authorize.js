@@ -8,7 +8,6 @@ function authorize(req,res,next) {
     try {
         const decodedPayload = jwt.verify(token, config.get('jwtPrivateKey'));
         req.user = decodedPayload;
-        console.log('User Token: ',req.user);
         next();
     } catch (ex) {
         res.status(400).send('Invalid token.');        
