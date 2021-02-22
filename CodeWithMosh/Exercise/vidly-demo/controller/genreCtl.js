@@ -1,17 +1,18 @@
 const {Genre, validate} = require('../models/genre');
-const asyncMiddleware = require('../middleware/async')
-
+const mongoose = require('mongoose');
 
 exports.getGenres = async (req, res) => {
     const genres = await Genre.find().sort('name');
     res.send(genres);
 }
 
-exports.getGenreById = asyncMiddleware(async (req,res) => {
-    const genre = await Genre
-        .findById(req.params.id);
+exports.getGenreById = async (req,res) => {
+    const genre = await Genre.findById(req.params.id);
+
+    if(!genre) return res.status(404).send('The genre with given not found!');
+
     res.send(genre);
-});
+};
 
 exports.postGenre = async (req, res) => {
     const {error} = validate(req.body);

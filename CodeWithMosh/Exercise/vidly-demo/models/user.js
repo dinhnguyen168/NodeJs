@@ -1,12 +1,12 @@
 const   Joi = require('joi');
 
-const   mongoose = require('mongoose'),
-        jwt = require('jsonwebtoken'),
-        config = require('config');
+const mongoose = require('mongoose'),
+      jwt = require('jsonwebtoken'),
+      config = require('config');
 
 Joi.objectId = require('joi-objectid')(Joi);
 
-const   userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     name: {
         type: String,
         min: 3,

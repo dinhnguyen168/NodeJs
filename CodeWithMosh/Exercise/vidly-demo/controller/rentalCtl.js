@@ -4,13 +4,15 @@ const   {Rental, validate} = require('../models/rental'),
 
 const   mongoose = require('mongoose');
 
+const {logger} = require('../utils/logger')
+
 
 //GET
 exports.getRentals = async (req, res) => {
     const rentals = await Rental
             .find()
             .sort('-dateOut');
-    res.send(rentals);
+    res.send(rentals);  
 }
 
 exports.getRentalById = async (req, res) => {
@@ -70,7 +72,7 @@ exports.postRental = async (req, res) => {
             res.send(rental);
         }, transactionOptions);
     } catch (error) {
-        console.error("Error: ", error);
+        logger.error("Error: ", error);
         res.status(500).send('Somthing failed in transactions...')
     }  finally {
         await session.endSession();

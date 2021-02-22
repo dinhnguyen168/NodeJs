@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "export NODE_ENV=development && nodemon index.js",
+    "test": "export NODE_ENV=test && jest --testEnvironment=node --verbose --forceExit --detectOpenHandles --watchAll --maxWorkers=1"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +24,8 @@
     "winston-mongodb": "^5.0.7"
   },
   "devDependencies": {
-    "jshint": "^2.12.0"
+    "jest": "^26.6.3",
+    "jshint": "^2.12.0",
+    "supertest": "^6.1.3"
   }
 }

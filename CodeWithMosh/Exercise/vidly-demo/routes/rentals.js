@@ -2,6 +2,8 @@ const { getRentals,
         postRental, 
         getRentalById} = require('../controller/rentalCtl');
 
+const validateObjectId = require('../middleware/validateObjectId');
+
 const   express = require('express');
 const   router = express.Router();
 
